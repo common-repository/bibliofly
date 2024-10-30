@@ -1,0 +1,48 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+<title>BiblioFly ReadMe</title>
+<style type="text/css">
+<!--
+body {font: 76% Verdana, Geneva, Arial, Helvetica, sans-serif; color: #444;}
+-->
+</style>
+</head>
+<body>
+<h3>Installation</h3>
+<ol>
+<li>If you are <b>upgrading</b>, first deactive the previous version of BiblioFly.</li>
+<li>Download the latest version (see <a href="http://www.deborahmcdonnell.com/damselfly/wordpress-plugins/bibliofly">http://www.deborahmcdonnell.com/damselfly/wordpress-plugins/bibliofly</a>)</li>
+<li>Upload bibliofly.php into your plugins directory (usually /wp-content/plugins)</li>
+<li>Navigate to the Plugins page in your administration panel and activate the plugin BiblioFly</li>
+</ol>
+<p>That's it! The plugin should automatically create/update the table it needs and after that you can manage your bibliography through your wordpress administration panel, under the Manage tab.</p>
+<h3>Embeddable Functions</h3>
+<h4>Embed Entry</h4><p class="qdig-caption">&#91;bfentry id=# small&#93;</p><p>Inserted into a wordpress post or page, the above code will embed the specified bibliography entry into the page. The command 'small' is optional; if omitted, the full bibliography entry will be embedded.</p>
+<h4>Print Full Page</h4><p class="qdig-caption">&#91;biblioflypage&#93;</p><p>This is the function that prints out your bibliography page. Simply insert the above code into your WordPress Page. The function will grab all bibliography entries marked as visible, sort them into categories (novel, short fiction, poem, non-fiction book, article) and print them out in full.</p><p>Each bibliography category is printed under an &lt;h3 class="bibliofly"&gt; element. For an example, see my <a href="http://www.deborahmcdonnell.com/damselfly/biblio">biblio page</a>.)</p><p>This function uses non-default classes, in case you want the full entry styled differently on the biblio page compared to when you call it through random/recent/specific functions:<ul><li>bfpage: wraps the entire entry</li><li>bfpage_img: wraps the image (don't forget to style bfpage_img img as well)</li><li>bfpage_entry: wraps the entry (title and excerpt) beside the image</li><li>bfpage_excerpt: wraps the excerpt so you can give it some form of highlighting</li></ul></p>
+<h4>Print One Category Per Page</h4><p class="qdig-caption">&#91;biblioflypage type=#&#93;</p><p>If you wish to restrict the function to calling only one category, this is the code to use, where:<ul><li>1 = novel</li><li>2 = short fiction</li><li>3 = poem</li><li>4 = non-fiction books</li><li>5 = articles</li></ul></p><p>&nbsp;</p>
+<h3>Template Functions</h3>
+<h4>Print Specific:</h4><p class="qdig-caption">&lt;?php bf_specific($id, $full) ?&gt;</p><p>Prints a specific biblio entry.<ul><li>$id (Required): the ID number of the biblio entry you wish to display;</li><li>$full (Optional) = "full" or "small" - Determines whether the function displays the small version (title & link) or the full version. Defaults to small if no second argument is provided.</li></ul><ul></ul></p><p>Example 1:</p><p class="qdig-caption">&lt;ul&gt;&lt;?php bf_specific(3); ?&gt;&lt;/ul&gt;</p><p>This will output an unordered list containing BiblioID #3 as its list item</p><p>Example 2:</p><p class="qdig-caption">&lt;ul&gt;&lt;?php bf_specific(3,"full"); ?&gt;&lt;/ul&gt;</p><p>This will output a full bibliography entry for BiblioID #3, using the default CSS classes</p><p>&nbsp;</p>
+<h4>Print Random:</h4><p class="qdig-caption">&lt;?php bf_random($full) ?&gt;</p><p>Prints a random biblio entry.<ul><li>$full (Optional) = "full" or "small" - Determines whether the function displays the small version (title & link) or the full version. Defaults to small if no second argument is provided.</li></ul><ul></ul></p><p>Each entry is wrapped in a list item, so you will need to call this function inside a parent list.</p><p>Example 1:</p><p class="qdig-caption">&lt;ul&gt;&lt;?php bf_random(); ?&gt;&lt;/ul&gt;</p><p>This will output an unordered list (with one item ;) , so probably not so much call to use an ordered list here)</p><p>Example 2:</p><p class="qdig-caption">&lt;ul&gt;&lt;?php bf_random("full"); ?&gt;&lt;/ul&gt;</p><p>This will output a random full bibliography entry, using the default CSS classes</p><p>&nbsp;</p>
+<h4>Print Recent:</h4><p class="qdig-caption">&lt;?php bf_recent($limit); ?&gt;</p><p><ul><li>$limit (Optional) - The maximum number of entries you wish to list. Defaults to all entries if omitted</li></ul></p><p>This is the function I use in my sidebar: it calls the most recent bibliography entries, and displays them in descending order by id. It wraps each entry in &lt;li class="bf_small"&gt;&lt;/li&gt;, so you will need to call the function inside an ordered or unordered list.</p><p>Example:</p><p class="qdig-caption">&lt;ul&gt;&lt;?php bf_recent(3); ?&gt;&lt;/ul&gt;</p><p>This will call the 3 most recently entered bibliography entries (eg if you have 10 entries, it will call 10, 9 & 8 (providing all three of those are marked as visible)).</p><p>&nbsp;</p>
+<h3>Default CSS Classes</h3>
+<ul>
+<li>bf_small: Called to wrap the 'short' entries. Wraps in &lt;li&gt;&lt;/li&gt; for template functions, or in &lt;p&gt;&lt;/p&gt; for the embeddable function</li>
+<li>bf_enclose: Called to print a full entry; wraps the entire entry</li>
+<li>bf_image: Called to print a full entry; wraps the image (don't forget to style bf_image img as well)</li>
+<li>bf_entry: Called to print a full entry; wraps the entry (title and excerpt) beside the image</li>
+<li>bf_excerpt: Called to print a full entry; wraps the excerpt so you can give it some form of highlighting</li>
+</ul>
+<h4>For the Bibliography Page</h4>
+<ul>
+<li>.bibliofly: The headers on the bibliography page (&lt;h3&gt; for the category heading, and &lt;h4&gt; for the forthcoming heading) are called as "class = bibliofly" so you can style them to your heart's content without breaking the headings on the rest of your site</li>
+<li>bfpage: Called to print a full entry; wraps the entire entry</li>
+<li>bfpage_img: Called to print a full entry; wraps the image (don't forget to style bf_image img as well)</li>
+<li>bfpage_entry: Called to print a full entry; wraps the entry (title and excerpt) beside the image</li>
+<li>bfpage_excerpt: Called to print a full entry; wraps the excerpt so you can give it some form of highlighting</li>
+</ul>
+<p>&nbsp;</p>
+<h3>Disclaimer</h3><p>I am far from being an expert in PHP. You can rest assured that all care was taken with this code, because I don't want to break my site (and because I based it on other peoples' code, so it should be stable enough). But I can't guarantee it won't break yours. If you have any questions or queries or suggestions, I'll do my best to answer them.</p>
+</body>
+</html>

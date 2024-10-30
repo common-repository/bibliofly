@@ -1,0 +1,114 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<html>
+<head>
+<title>BiblioFly Usage Instructions</title>
+
+<style type="text/css">
+<!--
+body {background: #58494e; font: 76% Verdana, Geneva, Arial, Helvetica, sans-serif; color: #444; margin: 0;}
+#container {margin: 0 auto; padding: 30px; background-color: #fff; border: 1px solid black; line-height: 1.7em; color: black; width: 783px;}
+h1 { font: normal 2.8em 'trebuchet ms', verdana, sans-serif; padding-top: 15px; }
+h2 {border-bottom: 1px solid #d1c1c7; color: #333; padding-bottom: 2px; font: normal 1.7em 'lucida sans unicode', 'lucida grande', sans-serif; }
+h3 {border-bottom: 1px solid #ddd; color: #333; padding-bottom: 2px; font: normal 1.4em 'lucida sans unicode', 'lucida grande', sans-serif; padding-top: 20px; }
+h4 {font: 1.2em 'lucida sans unicode', 'lucida grande', sans-serif; padding-bottom: 2 px; padding-top: 15px;}
+.quotecode {margin: 0em 3em; padding: 1em 3em; background: #cccccc;}
+ul li, ol li {list-style: square; margin-bottom: 1em;}
+-->
+</style>
+
+
+
+</head>
+<body>
+<div id="container">
+<h1>BiblioFly Function Calls</h1>
+<p>BiblioFly has five main functions, two for embedding a bibliography entry into a post or page, and three for displaying your meters in your templates. The latter will require you to modify your template, but don't worry, it's very easy.</p>
+<h2>Embedding A Bibliography</h2>
+<h3>Embed A Single Entry</h3>
+<p>To embed a single bibliography entry into a post or page, simply drop the following string into the text editor when you create your post or page:</p>
+<p class="quotecode">&#91;bfentry id=# small&#93;</p>
+<p>where:</p>
+<ul>
+	<li><strong>id=# (required):</strong> The ID number of the bibliography entry you wish to display</li>
+	<li><strong>small (optional):</strong> This part of the string instructs the function to print only the "small" bibliography display (title + link only). If omitted, the full bibliography entry will be displayed.</li></ul>
+
+<h4>Example Code</h4>
+<p>If you wish to display bibliography entry with id number 4, in full:</p>
+<p class="quotecode">&#91;bfentry id=4&#93;</p>
+
+<h3>Embed Full Bibliography Page</h3>
+<p>To print out the bibliography page, simply drop the following string into the text editor when you create your post or page:</p>
+<p class="quotecode">&#91;biblioflypage&#93;</p>
+<p>The function will fetch all bibliography entries marked as visible, sort them into categories (novel, short fiction, poem, non-fiction book, article), and print them out in full.</p>
+
+<h3>Embed Bibliography Page, Restricted by Category</h3>
+<p>If you wish your bibliography page to print only one category, this is the code to use:</p>
+<p class="quotecode">&#91;biblioflypage type=#&#93;</p>
+<p>where:</p>
+<ul><li>1 = novel</li>
+<li>2 = short fiction</li>
+<li>3 = poem</li>
+<li>4 = non-fiction books</li>
+<li>5 = articles</li></ul>
+
+<br />
+<h2>Template Functions</h2>
+<p>To display any of your bibliography entries outside of posts or pages, you will need to modify the template where you wish the meters to display.</p><p>Navigate to the appropriate template page (most people choose to edit sidebar.php to display a list of bibliography entries, for example), find the lines in the template where you wish the meters to display, and enter the appropriate function call (see below) into the code.</p> 
+<p>All the template functions output their list wrapped in &lt;li&gt;&lt;/li&gt; elements, so it's important to wrap the entire function in a parent list, either &lt;ul&gt;&lt/ul&gt; or &lt;ol&gt;&lt/ol&gt; elements.</p>
+
+<h3>Print Specific</h3>
+<p>To display a specific bibliography entry, copy and paste the following code into your template:</p>
+<p class="quotecode">&lt;ul&gt;&lt;?php bf_specific($id, $full) ?&gt;&lt;/ul&gt;</p>
+<p>where:</p>
+<ul>
+	<li><strong>$id (required):</strong> The id number of the entry you wish to display</li>
+	<li><strong>$full (optional):</strong> Choose <strong>"full"</strong> or <strong>"small"</strong>. If omitted, the small version (title + link only) will be displayed.</li></ul>
+
+<h4>Example Code</h4>
+<p>If you wish to display entry with id number 4, and you're happy with the default options:</p>
+<p class="quotecode">&lt;ul&gt;&lt;?php bf_specific(4); ?&gt;&lt;/ul&gt;</p>
+<p>If you wish to display entry with id number 4, in full:</p>
+<p class="quotecode">&lt;ul&gt;&lt;?php pf_specific(4,"full"); ?&gt;&lt;/ul&gt;</p>
+
+<h3>Print Random</h3>
+<p>To display a random bibliography entry, copy and paste the following code into your template:</p>
+<p class="quotecode">&lt;ul&gt;&lt;?php bf_random($full) ?&gt;&lt;/ul&gt;</p>
+<p>where:</p>
+<ul>
+	<li><strong>$full (optional):</strong> Choose <strong>"full"</strong> or <strong>"small"</strong>. If omitted, the small version (title + link only) will be displayed.</li></ul>
+
+<h4>Example Code</h4>
+<p>To display a random bibliography entry</p>
+<p class="quotecode">&lt;ul&gt;&lt;?php bf_random(); ?&gt;&lt;/ul&gt;</p>
+<p>To display a random bibliography entry, in full:</p>
+<p class="quotecode">&lt;ul&gt;&lt;?php bf_random("full"); ?&gt;&lt;/ul&gt;</p>
+
+
+<h3>Print Recent</h3>
+<p>To call the most recent bibliography entries, and display them in descending order by id, simply drop the following code into your template:</p>
+<p class="quotecode">&lt;ul&gt;&lt;?php bf_recent($limit); ?&gt;&lt;/ul&gt;</p>
+<p>where:</p>
+<ul><li><strong>$limit (optional):</strong> specifies the maximum number of entries you wish to list. Defaults to all entries if omitted.</li></ul>
+<h4>Example Code</h4>
+<p>To call the 3 most recently entered bibliography entries (eg, if you have 10 entries, it will call 10, 9 and 8 (providing all three are marked as visible)):</p>
+<p class="quotecode">&lt;ul&gt;&lt;?php bf_recent(3); ?&gt;&lt;/ul&gt;</p>
+
+<br />
+<h2>The CSS Classes</h2>
+<h3>Default CSS Classes</h3>
+<ul><li>.bf_small: Called to wrap the 'short' entries. Wraps in &lt;li&gt;&lt;/li&gt; for template functions, or in &lt;p&gt;&lt;/p&gt;> for the embeddable function</li>
+<li>.bf_enclose: Called to print a full entry; wraps the entire entry</li>
+<li>.bf_image: Called to print a full entry; wraps the image (don't forget to style bf_image img as well)</li>
+<li>.bf_entry: Called to print a full entry; wraps the entry (title and excerpt) beside the image</li>
+<li>.bf_excerpt: Called to print a full entry; wraps the excerpt so you can give it some form of highlighting</li></ul>
+<h3>The Bibliography Page</h3>
+<ul><li>.bibliofly: The headers on the bibliography page (&lt;h3&gt; for the category heading, and &lt;h4&gt; for the forthcoming heading) are called as "class = bibliofly" so you can style them to your heart's content without breaking the headings on the rest of your site</li>
+<li>.bfpage: Called to print a full entry; wraps the entire entry</li>
+<li>.bfpage_img: Called to print a full entry; wraps the image (don't forget to style bf_image img as well)</li>
+<li>.bfpage_entry: Called to print a full entry; wraps the entry (title and excerpt) beside the image</li>
+<li>.bfpage_excerpt: Called to print a full entry; wraps the excerpt so you can give it some form of highlighting</li></ul>
+</div> <!--#container-->
+</body>
+</html>
